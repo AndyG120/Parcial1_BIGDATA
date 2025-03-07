@@ -1,0 +1,116 @@
+{
+    "dev_parser": {
+        "app_function": "parcial_p.app",
+        "aws_region": "us-east-1",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent"
+        ],
+        "profile_name": "default",
+        "project_name": "parser",
+        "runtime": "python3.10",
+        "s3_bucket": "bparcial1-b",
+        "keep_warm": false,
+        "apigateway_enabled": false,
+        "manage_roles": false,
+        "role_name":"LabRole"
+        "events": [
+          {
+            "function": "parcial_p.app",
+            "event_source": {
+                  "arn":  "arn:aws:s3:::bparcial1-b",
+                  "events": [
+                    "s3:ObjectCreated:*"
+                  ]
+               }
+            }]
+        
+    },
+    "dev_parser_ap_east_1": {
+        "aws_region": "ap-east-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_northeast_1": {
+        "aws_region": "ap-northeast-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_northeast_2": {
+        "aws_region": "ap-northeast-2",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_northeast_3": {
+        "aws_region": "ap-northeast-3",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_south_1": {
+        "aws_region": "ap-south-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_southeast_1": {
+        "aws_region": "ap-southeast-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ap_southeast_2": {
+        "aws_region": "ap-southeast-2",
+        "extends": "dev_parser"
+    },
+    "dev_parser_ca_central_1": {
+        "aws_region": "ca-central-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_cn_north_1": {
+        "aws_region": "cn-north-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_cn_northwest_1": {
+        "aws_region": "cn-northwest-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_eu_central_1": {
+        "aws_region": "eu-central-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_eu_north_1": {
+        "aws_region": "eu-north-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_eu_west_1": {
+        "aws_region": "eu-west-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_eu_west_2": {
+        "aws_region": "eu-west-2",
+        "extends": "dev_parser"
+    },
+    "dev_parser_eu_west_3": {
+        "aws_region": "eu-west-3",
+        "extends": "dev_parser"
+    },
+    "dev_parser_sa_east_1": {
+        "aws_region": "sa-east-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_us_east_2": {
+        "aws_region": "us-east-2",
+        "extends": "dev_parser"
+    },
+    "dev_parser_us_gov_east_1": {
+        "aws_region": "us-gov-east-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_us_gov_west_1": {
+        "aws_region": "us-gov-west-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_us_west_1": {
+        "aws_region": "us-west-1",
+        "extends": "dev_parser"
+    },
+    "dev_parser_us_west_2": {
+        "aws_region": "us-west-2",
+        "extends": "dev_parser"
+    }
+}
