@@ -21,7 +21,7 @@
           {
             "function": "parcial_s.lambda_handler",
             "type": "schedule",
-            "expression": "cron(0/2 * ? * * *))"
+            "expression": "cron(0 9 ? * MON *)"
             }]
             
     },
