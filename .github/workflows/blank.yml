@@ -52,6 +52,6 @@ jobs:
       - name: Pruebas unitarias
         run: |
           source venv/bin/activate  # Activarlo
-          ls
           cd parser
+          ls
           pytest # Ejecuta los tests
