@@ -18,36 +18,12 @@ def clean_price(price):
     return "N/A"
 
 def extract_number(value):
-    """Extrae solo números de un string."""
+    """Extrae solo números de un string y los devuelve como un entero, o None si no hay números."""
     if value and isinstance(value, str):
         digits = re.sub(r"\D", "", value)  # Elimina caracteres no numéricos
-        return digits if digits else "N/A"
-    return "N/A"
+        return int(digits) if digits else None  # Devuelve un entero en lugar de string
+    return None  # Devuelve None en lugar de "N/A"
 
-def get_rooms_and_bathrooms(card):
-    """
-    Extrae el número de habitaciones y baños.
-    Primero intenta leerlos desde data-rooms y data-bathrooms.
-    Si no existen, los busca en etiquetas <span> con clases alternativas.
-    """
-    # Intentar extraer desde atributos data-rooms y data-bathrooms
-    rooms = card.get("data-rooms", None)
-    bathrooms = card.get("data-bathrooms", None)
-
-    # Si no se encuentran en los atributos, buscar dentro de etiquetas <span>
-    if not rooms:
-        rooms_span = card.find("span", class_=re.compile(r"rooms|habitaciones", re.IGNORECASE))
-        rooms = rooms_span.text.strip() if rooms_span else "N/A"
-    
-    if not bathrooms:
-        bathrooms_span = card.find("span", class_=re.compile(r"bathrooms|baños", re.IGNORECASE))
-        bathrooms = bathrooms_span.text.strip() if bathrooms_span else "N/A"
-
-    # Limpiar los valores extraídos para que solo contengan números
-    rooms = extract_number(rooms)
-    bathrooms = extract_number(bathrooms)
-
-    return rooms, bathrooms
 
 def extract_data(html_content):
     """Extrae datos de apartaestudios desde las etiquetas <a> en el HTML."""
@@ -63,13 +39,20 @@ def extract_data(html_content):
         price = clean_price(card.get("data-price", "N/A"))
 
         # Extraer número de habitaciones y baños
-        rooms, bathrooms = get_rooms_and_bathrooms(card)
+        bedrooms_tag = card.find("p", {"data-test": "bedrooms"})
+        # Extraer el valor del atributo content si existe, de lo contrario, poner None
+        bedrooms = bedrooms_tag["content"] if bedrooms_tag and bedrooms_tag.has_attr("content") else None
+    
+        bathrooms_tag = card.find("p", {"data-test": "bathrooms"})
+        # Extraer el valor del atributo content si existe, de lo contrario, poner None
+        bathrooms = bathrooms_tag["content"] if bathrooms_tag and bathrooms_tag.has_attr("content") else None
+
 
         # Extraer área en metros cuadrados
         floor_area_raw = card.get("data-floorarea", "N/A")
         floor_area = extract_number(floor_area_raw)
         
-        registros.append([fecha_descarga, location, price, rooms, bathrooms, floor_area])
+        registros.append([fecha_descarga, location, price, bedrooms, bathrooms, floor_area])
     
     return registros
 

@@ -1,6 +1,6 @@
 {
     "dev_scrapping": {
-        "app_function": "parcia1_s.app",
+        "app_function": "parcia1_s.lambda_handler",
         "aws_region": "us-east-1",
         "exclude": [
             "boto3",
@@ -19,9 +19,9 @@
         "role_name":"LabRole"
         "events": [
           {
-            "function": "parcial_s.app",
+            "function": "parcial_s.lambda_handler",
             "type": "schedule",
-            "expression": "cron(0 9 ? * MON *)"
+            "expression": "cron(0/2 * ? * * *))"
             }]
             
     },
