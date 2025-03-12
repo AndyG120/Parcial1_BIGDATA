@@ -55,3 +55,27 @@ jobs:
           cd parser
           ls
           pytest pruebas_unitarias.py # Ejecuta los tests
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+            aws-region: us-east-1
+      - name: List buckets
+        run: |
+          source venv/bin/activate  # Activarlo
+          aws s3 ls
+      - name: Deploy with Zappa
+        run: |
+          source venv/bin/activate  # Activarlo
+          cd parser
+          ls
+          zappa deploy dev_parser
+
+      # 🔹 Paso 7: Verificar despliegue
+      - name: Check Zappa Status
+        run: |
+          source venv/bin/activate  # Activarlo
+          cd parser
+          zappa status dev_parser
