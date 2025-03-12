@@ -54,4 +54,4 @@ jobs:
           source venv/bin/activate  # Activarlo
           cd parser
           ls
-          pytest # Ejecuta los tests
+          pytest pruebas_unitarias.py # Ejecuta los tests
